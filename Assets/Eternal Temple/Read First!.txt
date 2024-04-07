@@ -1,0 +1,44 @@
+1) Check your color space settings under Edit -> Project Settings -> Player -> Other Settings.
+We recommend setting it to Linear when possible.
+
+2) Import the pack that matches your platform (PC or Mobile)
+
+For example, if you are developing a PC project and your color space is Linear, then
+"Eternal Temple PC Linear 1.5.unitypackage" is for you.
+
+3) If your color space is Gamma and it is too late to swich to linear, import a linear package first,
+and then import one of the "converters to gamma space".
+
+For example, if you are developing a Mobile project in Gamma space, import
+"Eternal Temple Mobile Linear 1.5" first, and then import "Convert Mobile Linear to Gamma 1.5"
+on top of it.
+
+4) Double click on a pack to import it.
+
+For HDRP:
+Make sure you have High Definition RP installed from Package Manager
+Unpack “Eternal Temple HDRP 2019.4.23f1”
+Assign your existing or new HDRP Asset to the
+Edit -> Project Settings -> Graphics -> Scriptable Render Pipeline Settings field
+
+For URP:
+Make sure you have Universal RP installed from Package Manager
+Unpack “Eternal Temple URP 2019.4.23f1”
+Assign your existing or new URP Asset to the
+Edit -> Project Settings -> Graphics -> Scriptable Render Pipeline Settings field
+
+Troubleshooting:
+It looks dull and gray in Built-in. Fix: make sure you are using a version that matches your color space.
+It looks dull and gray in URP. Fix: make sure "Post Processing" is ON for your camera.
+The grass is neon green in HDRP. Fix: select the object's material, click "Fix" in the warning message under the "Diffusion Profile" field.
+Everything is green or glowing in HDRP. Fix: click Play once and it will fix itself.
+
+===================
+
+Please make sure to backup your project before updating!
+
+The pack is set up to work with the lightmap resolution of 8 and above.
+
+If you have a question of comment, please email us at manastation3d@gmail.com
+
+Thank you for choosing Eternal Temple!
