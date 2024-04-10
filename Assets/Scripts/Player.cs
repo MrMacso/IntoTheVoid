@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
     void Awake()
     {
         CurrentHealth = _maxHealth;
+        FindObjectOfType<HealthPanel>().Bind(this);
     }
     public float GetAcceleration()
     {
@@ -35,5 +36,10 @@ public class Player : MonoBehaviour
     public float GetCurrentHealthNormalised()
     {
         return CurrentHealth / _maxHealth;
+    }
+    public void Test_DealDamage()
+    {
+        CurrentHealth -= 10f;
+        HealthChanged?.Invoke();
     }
 }

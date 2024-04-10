@@ -5,31 +5,23 @@ using UnityEngine.Pool;
 
 public class TunnelPiece : MonoBehaviour
 {
-    [SerializeField] float _speed = 8.0f;
-    [SerializeField] float _maxLifetime = 20.0f;
-
-    Rigidbody _rb;
-    Vector3 _direction = -Vector3.down;
     ObjectPool<TunnelPiece> _pool;
-    float _selfDestructTime;
 
-    private void Awake()
-    {
-        _rb = GetComponent<Rigidbody>();
-    }
+    float _speed = 2.0f;
+    bool _isActive = true;
+
+    readonly Vector3 _direction = -Vector3.down;
     void Update()
     {
-        _rb.velocity = _direction * _speed;
-        if (Time.time >= _selfDestructTime)
-            SelfDestruct();
+        if (_isActive)
+            transform.Translate(_direction * _speed);
     }
     public void Build( Vector3 position, float speed)
     {
         transform.position = position;
-        _speed= speed;
-        _selfDestructTime = Time.time + _maxLifetime;
+        _speed = speed;
     }
-    void SelfDestruct()
+    public void SelfDestruct()
     {
         _pool.Release(this);
     }
@@ -40,5 +32,11 @@ public class TunnelPiece : MonoBehaviour
     public void SetSpeed(float speed)
     {
         _speed = speed;
+    }
+    public Vector3 GetHeightInVector()
+    {
+        var mesh = gameObject.GetComponentInChildren<MeshCollider>();
+        var height = mesh.bounds.size.y;
+        return new Vector3(0,height,0);
     }
 }

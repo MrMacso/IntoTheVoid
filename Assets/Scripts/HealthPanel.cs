@@ -12,14 +12,15 @@ public class HealthPanel : MonoBehaviour
     public void Bind(Player player)
     {
         _player = player;
-        _player.ScoreChanged += UpdateScore;
+        //_player.ScoreChanged += UpdateScore;
         _player.HealthChanged += UpdateHealth;
-        UpdateScore();
+        //UpdateScore();
         UpdateHealth();
     }
     private void UpdateHealth()
     {
-        _healthBar.rectTransform.sizeDelta = new Vector2(_player.GetCurrentHealthNormalised(), _healthBar.rectTransform.sizeDelta.y);
+        _healthBar.fillAmount = _player.GetCurrentHealthNormalised();
+        Debug.Log("Hello");
     }
     private void UpdateScore()
     {
