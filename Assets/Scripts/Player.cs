@@ -37,9 +37,9 @@ public class Player : MonoBehaviour
     {
         return CurrentHealth / _maxHealth;
     }
-    public void Test_DealDamage()
+    public void TakeDamage(float damage)
     {
-        CurrentHealth -= 10f;
+        CurrentHealth-= damage;
         HealthChanged?.Invoke();
     }
 }
