@@ -537,6 +537,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 138328710}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &149592592
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 149592593}
+  m_Layer: 0
+  m_Name: --------TEST---------
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &149592593
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 149592592}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -1205,7 +1236,7 @@ GameObject:
   - component: {fileID: 481211106}
   - component: {fileID: 481211105}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: Game & PoolManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1224,6 +1255,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tunnelPiecePf: {fileID: 7199004663819645568, guid: 51b98c59a08ad474aa45d5105fa545a0,
+    type: 3}
+  _testObstaclePf: {fileID: 3225014837054416293, guid: b4a086b90e650574fb2ecb2dbd60e1f6,
     type: 3}
 --- !u!4 &481211106
 Transform:
@@ -1784,6 +1817,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58f648ec331666440819925fc45241b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  testObject: {fileID: 8265570531456625904, guid: b4a086b90e650574fb2ecb2dbd60e1f6,
+    type: 3}
 --- !u!4 &1253240387
 Transform:
   m_ObjectHideFlags: 0
@@ -2282,7 +2317,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2020909002}
   m_Layer: 0
-  m_Name: ---CHARACTERS----
+  m_Name: ----CHARACTERS----
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2320,3 +2355,4 @@ SceneRoots:
   - {fileID: 2020909002}
   - {fileID: 104594648}
   - {fileID: 1050845282}
+  - {fileID: 149592593}

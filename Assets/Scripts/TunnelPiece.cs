@@ -7,10 +7,14 @@ public class TunnelPiece : MonoBehaviour
 {
     ObjectPool<TunnelPiece> _pool;
 
+    [SerializeField] List<TP_Socket> Sockets = new List<TP_Socket>();
+    const int SOCKET_PIECE_ANGLE = 45;
+
     float _speed = 2.0f;
     bool _isActive = true;
 
     readonly Vector3 _direction = -Vector3.down;
+
     void Update()
     {
         if (_isActive)
@@ -38,5 +42,20 @@ public class TunnelPiece : MonoBehaviour
         var mesh = gameObject.GetComponentInChildren<MeshCollider>();
         var height = mesh.bounds.size.y;
         return new Vector3(0,height,0);
+    }
+
+    public void AttachToSocket(Obstacle obstacle, int socketAngle)
+    {
+        socketAngle = socketAngle - (socketAngle % SOCKET_PIECE_ANGLE);
+        int socketListNum = socketAngle / SOCKET_PIECE_ANGLE;
+
+        Sockets[socketListNum].AddToSocket(obstacle);
+    }
+    public void RemoveObstacles()
+    {
+        for (int i = 0; i < Sockets.Count; i++)
+        {
+             Sockets[i].ClearSocket();
+        }
     }
 }

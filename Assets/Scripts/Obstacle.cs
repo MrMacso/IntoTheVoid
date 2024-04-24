@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Pool;
 
-public class DamagePlayer : MonoBehaviour
+public class Obstacle : MonoBehaviour
 {
     [SerializeField] float DamageAmount;
+
+    ObjectPool<Obstacle> _pool;
 
     void OnCollisionEnter(Collision collision)
     {
@@ -17,5 +20,14 @@ public class DamagePlayer : MonoBehaviour
                 player.TakeDamage(DamageAmount);
             }
         }
+    }
+
+    public void SetPool(ObjectPool<Obstacle> pool)
+    {
+        _pool = pool;
+    }
+    public void SelfDestruct()
+    {
+        _pool.Release(this);
     }
 }
