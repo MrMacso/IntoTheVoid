@@ -38,17 +38,17 @@ public class InputManager : MonoBehaviour
         {
             _rb.AddForce(new Vector3(inputVector.x, 0f, inputVector.y) * _player.GetAcceleration(), ForceMode.Force);
 
-            if (_rb.velocity.magnitude > _player.GetMaxSpeed())
+            if (_rb.linearVelocity.magnitude > _player.GetMaxSpeed())
             {
-                _rb.velocity = _rb.velocity.normalized * _player.GetMaxSpeed();
+                _rb.linearVelocity = _rb.linearVelocity.normalized * _player.GetMaxSpeed();
             }
-            if (Vector3.Dot((Vector3)inputVector, _rb.velocity) < 0f)
+            if (Vector3.Dot((Vector3)inputVector, _rb.linearVelocity) < 0f)
             {
-                _rb.AddForce(_rb.velocity * -_player.GetDeceleration(), ForceMode.Force);
+                _rb.AddForce(_rb.linearVelocity * -_player.GetDeceleration(), ForceMode.Force);
             }
         }
         else
-            _rb.AddForce(_rb.velocity * -_player.GetDeceleration(), ForceMode.Force);
+            _rb.AddForce(_rb.linearVelocity * -_player.GetDeceleration(), ForceMode.Force);
     }
 
     void Cast_performed(InputAction.CallbackContext context)
