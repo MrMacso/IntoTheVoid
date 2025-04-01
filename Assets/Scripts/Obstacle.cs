@@ -5,23 +5,26 @@ using UnityEngine.Pool;
 
 public class Obstacle : MonoBehaviour
 {
-    [SerializeField] float DamageAmount;
+    [SerializeField] float _damageAmount;
 
     ObjectPool<Obstacle> _pool;
 
-    void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter(Collider other)
     {
 
-        if (collision.collider.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
-            var player = collision.collider.GetComponent<Player>();
+            var player = other.GetComponent<Player>();
             if (player != null)
             {
-                player.TakeDamage(DamageAmount);
+                player.TakeDamage(_damageAmount);
             }
         }
     }
-
+    public void SetDamageDeal(int amount)
+    {
+        _damageAmount = amount;
+    }
     public void SetPool(ObjectPool<Obstacle> pool)
     {
         _pool = pool;

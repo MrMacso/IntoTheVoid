@@ -44,11 +44,11 @@ public class TunnelPiece : MonoBehaviour
         return new Vector3(0,height,0);
     }
 
-    public void AttachToSocket(Obstacle obstacle, int socketAngle)
+    public void AttachToSocket(Obstacle obstacle, int socketAngle, int damageAmount)
     {
         socketAngle = socketAngle - (socketAngle % SOCKET_PIECE_ANGLE);
         int socketListNum = socketAngle / SOCKET_PIECE_ANGLE;
-
+        obstacle.SetDamageDeal(damageAmount);
         Sockets[socketListNum].AddToSocket(obstacle);
     }
     public void RemoveObstacles()

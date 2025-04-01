@@ -5,13 +5,13 @@ using UnityEngine;
 public class TunnelManager : MonoBehaviour
 {
     [SerializeField] GameObject testObject;
-    List<TunnelPiece> _tunnelPieceList = new List<TunnelPiece>();
-    List<Obstacle> _obstacleList = new List<Obstacle>();
+    List<TunnelPiece> _tunnelPieceList = new();
+    List<Obstacle> _obstacleList = new ();
     float _speed = 0.1f;
-
+    int _damage = 6;
     const int MAX_TUNNELPIECE_INDEX = 15;
-    readonly Vector3 START_POS = new Vector3(0,70,0);
-    readonly Vector3 END_POS = new Vector3(0,250,0);
+    readonly Vector3 START_POS = new (0,70,0);
+    readonly Vector3 END_POS = new (0,250,0);
 
     void Awake()
     {
@@ -25,60 +25,68 @@ public class TunnelManager : MonoBehaviour
         if(_tunnelPieceList.Count != MAX_TUNNELPIECE_INDEX)
         {
             BuildTunnelPiece();
-            
         }
         if (_tunnelPieceList[0].transform.position.y > END_POS.y)
         {
-            _obstacleList[0].SelfDestruct();
-            RemoveObstacle(_obstacleList[0]);
-            _tunnelPieceList[0].RemoveObstacles();
-            _tunnelPieceList[0].SelfDestruct();
-            RemoveTunnelPiece(_tunnelPieceList[0]);
+            DestroyTunnelPiece();
         }
     }
     void BuildTunnelPiece()
     {
-        TunnelPiece piece = PoolManager.Instance.GetTunnelPiece();
+        TunnelPiece tunnelPiece = PoolManager.Instance.GetTunnelPiece();
+        var position = NextTunnelPiecePosition(tunnelPiece);
 
-        if(_tunnelPieceList.Count == 0)
+        tunnelPiece.Build(position, _speed);
+        AddTunnelPieceToList(tunnelPiece);
+        BuildObstacle(tunnelPiece);//testing
+    }
+    void DestroyTunnelPiece()
+    {
+        _obstacleList[0].SelfDestruct();
+        RemoveObstacleFromList(_obstacleList[0]);
+
+        _tunnelPieceList[0].RemoveObstacles();
+        _tunnelPieceList[0].SelfDestruct();
+        RemoveTunnelPieceFromList(_tunnelPieceList[0]);
+    }
+    Vector3 NextTunnelPiecePosition(TunnelPiece tunnelPiece)
+    {
+        Vector3 position;
+        if (_tunnelPieceList.Count == 0)
         {
-            piece.Build(START_POS, _speed);
-            AddTunnelPiece(piece);
-            BuildObstacle(piece);//testing
-
+            position = START_POS;
         }
         else
         {
-            var pos = GetLastPiecePosition() - piece.GetHeightInVector();
-            piece.Build(pos, _speed);
-            AddTunnelPiece(piece);
-            BuildObstacle(piece);//testing
+            position = GetLastPiecePosition() - tunnelPiece.GetHeightInVector();
         }
+        return position;
     }
     public void BuildObstacle(TunnelPiece piece)
     {
         Obstacle obstacle = PoolManager.Instance.GetTestObstacle();
 
-        _obstacleList.Add(obstacle);
+        AddObstacleToList(obstacle);
 
         int randomNum = Random.Range(0, 316);
         int normalized = randomNum - randomNum % 45;
 
-        piece.AttachToSocket(obstacle, normalized);
+        piece.AttachToSocket(obstacle, normalized, _damage);
     }
-    void AddTunnelPiece(TunnelPiece tunnelPiece)
+
+    void AddTunnelPieceToList(TunnelPiece tunnelPiece)
     {
         _tunnelPieceList.Add(tunnelPiece);
     }
-    void RemoveTunnelPiece(TunnelPiece tunnelPiece)
+    void RemoveTunnelPieceFromList(TunnelPiece tunnelPiece)
     {
         _tunnelPieceList.Remove(tunnelPiece);
     }
-    void AddObstacle(Obstacle obstacle)
+    void AddObstacleToList(Obstacle obstacle)
     {
         _obstacleList.Add(obstacle);
     }
-    void RemoveObstacle(Obstacle obstacle)
+    void RemoveObstacleFromList(Obstacle obstacle)
     {
         _obstacleList.Remove(obstacle);
     }
